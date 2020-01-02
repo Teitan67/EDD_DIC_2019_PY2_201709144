@@ -3,7 +3,7 @@ package ventanas;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import clases.usuario;
+import clases.Usuario;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class m_Administrador extends javax.swing.JFrame {
     JFileChooser fc;
     File Archivo;
     FileNameExtensionFilter filter;
-    ArrayList<usuario> auxUser;
+    ArrayList<Usuario> auxUser;
     JSONParser jsonParser;
     // public static final ObjectMapper JSON_MAPPER;
 

@@ -50,9 +50,8 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EDD Learning");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setIconImage(new ImageIcon(getClass().getResource("../recursos/educacion.png")).getImage());
+        setIconImages(null);
         setLocation(new java.awt.Point(300, 200));
-        setPreferredSize(new java.awt.Dimension(850, 450));
         setResizable(false);
         setSize(new java.awt.Dimension(850, 450));
 
@@ -101,7 +100,6 @@ public class Login extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addGap(18, 18, 18))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel2)
                                     .addGap(44, 44, 44)))
                             .addComponent(jLabel1))
