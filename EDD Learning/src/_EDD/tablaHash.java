@@ -15,7 +15,7 @@ import clases.nodoHash;
 
 public class tablaHash {
 
-    private int size;
+    public int size;
     private static int[] sizes;
     private int indiceTam;
     private int ocupados;

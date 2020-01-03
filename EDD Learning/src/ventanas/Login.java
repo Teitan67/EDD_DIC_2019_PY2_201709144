@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package ventanas; 
+import _EDD.tablaHash;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -17,9 +19,11 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     m_Administrador mAdministrador = new m_Administrador();
+    
     boolean admin = false;
     boolean user = false;
-
+    
+    
     public Login() {
         initComponents();
         advertencia.setVisible(false);
@@ -147,19 +151,29 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         admin = validarAdmin(jTextField1.getText(), jPasswordField1.getText());
         mAdministrador.setVisible(admin);
-        if (!admin) {
-            advertencia.setVisible(true);
-        }else{
+        if (admin) {
             advertencia.setVisible(false);
+        }else{
+            if(mAdministrador.th.obtenerNodo(jTextField1.getText())!=null){
+                if(mAdministrador.th.obtenerNodo(jTextField1.getText()).getPassword().equals(jPasswordField1.getText())){
+                    advertencia.setVisible(false);
+                    JOptionPane.showMessageDialog(null,"Acceso Concebido");
+                }else{
+                     advertencia.setVisible(true);
+                }
+            }else{
+                advertencia.setVisible(true);
+                //JOptionPane.showMessageDialog(null,"NULOOO");
+            } 
         }
         jTextField1.setText("");
         jPasswordField1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
     boolean validarAdmin(String usuario, String pass) {
-        if (usuario.equals("201709144") && pass.equals("123Animales")) {
+        if (usuario.equals("201709144") && pass.equals("0000")) {
             return true;
         }
-        return true;
+        return false;
     }
 
     /**

@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -30,11 +32,22 @@ public class m_Administrador extends javax.swing.JFrame {
     FileNameExtensionFilter filter;
     ArrayList<Usuario> auxUser;
     JSONParser jsonParser;
-    tablaHash th=new tablaHash();
+    DefaultTableModel modelo, modelo1;
+    public tablaHash th = new tablaHash();
     // public static final ObjectMapper JSON_MAPPER;
 
     public m_Administrador() {
         initComponents();
+        modelo = new DefaultTableModel();
+        modelo1 = new DefaultTableModel();
+        modelo.addColumn("Carne");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Password");
+        modelo1.addColumn("Carnet");
+        modelo1.addColumn("Motivo");
+        jTable1.setModel(modelo);
+        jTable2.setModel(modelo1);
     }
 
     /**
@@ -46,6 +59,9 @@ public class m_Administrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -55,6 +71,34 @@ public class m_Administrador extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("Editar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Eliminar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(250, 150));
@@ -74,7 +118,7 @@ public class m_Administrador extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jTable1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -83,6 +127,7 @@ public class m_Administrador extends javax.swing.JFrame {
                 "Carnet", "Nombre", "Apellido", "Password"
             }
         ));
+        jTable1.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -105,23 +150,82 @@ public class m_Administrador extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
         jTable2.getAccessibleContext().setAccessibleParent(jScrollPane1);
 
+        jTextField2.setEnabled(false);
+
+        jTextField3.setEnabled(false);
+
+        jTextField4.setEnabled(false);
+
+        jTextField5.setEnabled(false);
+
+        jButton2.setText("Modificar");
+        jButton2.setEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Carnet");
+
+        jLabel5.setText("Nombre");
+
+        jLabel6.setText("Apellida");
+
+        jLabel7.setText("Password");
+
+        jMenu1.setText("Reporte");
+
+        jMenuItem3.setText("Generar reporte Hash");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jButton1))
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jTextField2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(jLabel4)
+                        .addGap(148, 148, 148)
+                        .addComponent(jLabel5)
+                        .addGap(178, 178, 178)
+                        .addComponent(jLabel6)
+                        .addGap(166, 166, 166)
+                        .addComponent(jLabel7)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -132,21 +236,35 @@ public class m_Administrador extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         fc = new JFileChooser();
         filter = new FileNameExtensionFilter("JSON", "json");
         fc.setAcceptAllFileFilterUsed(false);
@@ -165,21 +283,118 @@ public class m_Administrador extends javax.swing.JFrame {
                 userList.forEach(user -> parseUserObject((JSONObject) user));
 
             } catch (FileNotFoundException e) {
-            }catch (IOException e) {
+            } catch (IOException e) {
             } catch (org.json.simple.parser.ParseException ex) {
                 Logger.getLogger(m_Administrador.class.getName()).log(Level.SEVERE, null, ex);
             }
 // Para productos
-            
+
 // Para productos
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    private  void parseUserObject(JSONObject user) {
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        int fila=jTable1.getSelectedRow();
+        if(fila>=0){
+            th.eliminarNodo((String) modelo.getValueAt(fila, 0));
+            modelo.removeRow(fila);
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione un elemento");
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-       th.insertar((String) user.get("Carnet"), (String) user.get("Nombre"), (String) user.get("Apellido"), (String) user.get("Password"));
-       
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int fila=jTable1.getSelectedRow();
+        if(fila>=0){
+            th.eliminarNodo((String) modelo.getValueAt(fila, 0));
+            jTextField2.setEnabled(true);
+            jTextField3.setEnabled(true);
+            jTextField4.setEnabled(true);
+            jTextField2.setText((String) modelo.getValueAt(fila, 0));
+            jTextField3.setText((String) modelo.getValueAt(fila, 1));
+            jTextField4.setText((String) modelo.getValueAt(fila, 2));
+            jTextField5.setText((String) modelo.getValueAt(fila, 3));
+            jButton2.setEnabled(true);
+            modelo.removeRow(fila);
+        }else{
+            JOptionPane.showMessageDialog(null,"Seleccione un elemento");
+        }
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            String data[] = new String[4];
+            data[0]=jTextField2.getText();
+            data[1]=jTextField3.getText();
+            data[2]=jTextField4.getText();
+            data[3]=jTextField5.getText();
+            th.insertar(data[0],data[1],data[2],data[3]);
+            modelo.addRow(data);
+            jTextField2.setEnabled(false);
+            jTextField3.setEnabled(false);
+            jTextField4.setEnabled(false);
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+            jTextField5.setText("");
+            jButton2.setEnabled(false);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+      generarReporte();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    void generarReporte(){
+        String contenido="digraph G {\n" +
+"	nodesep=.05;\n" +
+"	rankdir=LR;\n" +
+"	node [shape=record,width=.1,height=.1];\n" +
+"\n" +
+"	node0 [label = \"<f0> |<f1> |<f2> |<f3> |<f4> |<f5> |<f6> |<f7>|<18>| \",height=2.5];\n" +
+"	node [width = 1.5];\n" +
+"	node1 [label = \"{<n> 12312 | Oscar  }\"];\n" +
+"	node2 [label = \"{<n> a1  | 805  }\"];\n" +
+"	node3 [label = \"{<n> i9  | 718  }\"];\n" +
+"	node4 [label = \"{<n> e5  | 989  }\"];\n" +
+"	node5 [label = \"{<n> t20 | 959  }\"] ;\n" +
+"\n" +
+"	node0:f0 -> node1:n;\n" +
+"	node0:f1 -> node2:n;\n" +
+"	node0:f2 -> node3:n;\n" +
+"	node0:f5 -> node4:n;\n" +
+"	node0:f6 -> node5:n;\n" +
+"}";
+        for(int i=0;i<th.size;i++){
+        
+        }
+        
     }
+    private void parseUserObject(JSONObject user) {
+        String data[] = new String[4];
+        String dataError[] = new String[2];
+        data[0] = (String) user.get("Carnet");
+        data[1] = (String) user.get("Nombre");
+        data[2] = (String) user.get("Apellido");
+        data[3] = (String) user.get("Password");
+        if (data[3].length() >= 8) {
+            if (th.obtenerNodo(data[0]) == null) {
+                th.insertar((String) user.get("Carnet"), (String) user.get("Nombre"), (String) user.get("Apellido"), (String) user.get("Password"));
+                modelo.addRow(data);
+            } else {
+                dataError[0] = data[0];
+                dataError[1] = "El usuario ya existe";
+                modelo1.addRow(dataError);
+            }
+
+        } else {
+            dataError[0] = data[0];
+            dataError[1] = "Password no tiene los 8 caracteres minimos";
+            modelo1.addRow(dataError);
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -219,13 +434,28 @@ public class m_Administrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
