@@ -5,7 +5,7 @@
  */
 package _EDD;
 
-import clases.Usuario;
+import clases.usuario;
 import clases.nodoHash;
 /**
  *
@@ -154,9 +154,9 @@ public class tablaHash {
         return aux;
     }
     
-    public Usuario obtenerNodo(String carne){
+    public usuario obtenerNodo(String carne){
         boolean encontrado=false;
-        Usuario tmp = null;
+        usuario tmp = null;
         int pos=0;
         for(int i=0;i<size;i++){
             int posicion=DobleHashing(carne,i);

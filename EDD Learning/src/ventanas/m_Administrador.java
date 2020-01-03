@@ -4,7 +4,7 @@ import _EDD.tablaHash;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import clases.Usuario;
+import clases.usuario;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class m_Administrador extends javax.swing.JFrame {
     JFileChooser fc;
     File Archivo;
     FileNameExtensionFilter filter;
-    ArrayList<Usuario> auxUser;
+    ArrayList<usuario> auxUser;
     JSONParser jsonParser;
     DefaultTableModel modelo, modelo1;
     public tablaHash th = new tablaHash();
