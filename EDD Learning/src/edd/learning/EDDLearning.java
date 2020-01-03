@@ -6,7 +6,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import ventanas.Login;
 import ventanas.m_Administrador;
-
 /**
  *
  * @author Oscar-Laptop

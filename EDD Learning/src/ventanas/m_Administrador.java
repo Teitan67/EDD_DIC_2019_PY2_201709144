@@ -1,5 +1,6 @@
 package ventanas;
 
+import _EDD.tablaHash;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -29,6 +30,7 @@ public class m_Administrador extends javax.swing.JFrame {
     FileNameExtensionFilter filter;
     ArrayList<Usuario> auxUser;
     JSONParser jsonParser;
+    tablaHash th=new tablaHash();
     // public static final ObjectMapper JSON_MAPPER;
 
     public m_Administrador() {
@@ -172,25 +174,8 @@ public class m_Administrador extends javax.swing.JFrame {
 // Para productos
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    private static void parseUserObject(JSONObject user) {
-
-        // Get user first name
-        String id = (String) user.get("Nombre");
-        System.out.println(id);
-         
-        // Get user first name
-        String firstName = (String) user.get("Apellido");
-        System.out.println(firstName);
-
-        // Get user last name
-        String lastName = (String) user.get("Carnet");
-        System.out.println(lastName);
-
-        // Get user website name
-        String userName = (String) user.get("Password");
-        System.out.println(userName);
-       
-
+    private  void parseUserObject(JSONObject user) {
+       th.insertar((String) user.get("Carnet"), (String) user.get("Nombre"), (String) user.get("Apellido"), (String) user.get("Password"));
     }
     /**
      * @param args the command line arguments
