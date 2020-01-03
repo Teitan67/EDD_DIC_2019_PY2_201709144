@@ -175,7 +175,10 @@ public class m_Administrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     private  void parseUserObject(JSONObject user) {
+
+
        th.insertar((String) user.get("Carnet"), (String) user.get("Nombre"), (String) user.get("Apellido"), (String) user.get("Password"));
+       
     }
     /**
      * @param args the command line arguments
