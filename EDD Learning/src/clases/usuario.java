@@ -14,14 +14,14 @@ public class usuario {
         this.password=pass;
     }
     
-    void setNombre(String name){this.nombre=name;}
-    void setApellido(String A){this.apellido=A;}
-    void setCarne(String C){this.carne=C;}
-    void setPassword(String P){this.password=P;}
+    public void setNombre(String name){this.nombre=name;}
+    public void setApellido(String A){this.apellido=A;}
+    public void setCarne(String C){this.carne=C;}
+    public void setPassword(String P){this.password=P;}
     
-    String getNombre(){return this.nombre;}
-    String getApellido(){return this.apellido;}
-    String getCarne(){return this.carne;}
-    String getPassword(){return this.password;}
+    public String getNombre(){return this.nombre;}
+    public String getApellido(){return this.apellido;}
+    public String getCarne(){return this.carne;}
+    public String getPassword(){return this.password;}
        
 }
