@@ -19,7 +19,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     m_Administrador mAdministrador = new m_Administrador();
-    
+    m_user user1;
     boolean admin = false;
     boolean user = false;
     
@@ -158,6 +158,8 @@ public class Login extends javax.swing.JFrame {
                 if(mAdministrador.th.obtenerNodo(jTextField1.getText()).getPassword().equals(jPasswordField1.getText())){
                     advertencia.setVisible(false);
                     JOptionPane.showMessageDialog(null,"Acceso Concebido");
+                    user1=new m_user(mAdministrador.th.obtenerNodo(jTextField1.getText()).getNombre());
+                    user1.setVisible(true);
                 }else{
                      advertencia.setVisible(true);
                 }
@@ -173,7 +175,7 @@ public class Login extends javax.swing.JFrame {
         if (usuario.equals("201709144") && pass.equals("0000")) {
             return true;
         }
-        return true;
+        return false;
     }
 
     /**

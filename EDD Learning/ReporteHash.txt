@@ -5,17 +5,19 @@ digraph G {
 
 	node0 [label = "<f1>|<f2>|<f3>|<f4>|<f5>|<f6>|<f7>|<f8>|<f9>|<f10>|<f11>|<f12>|<f13>|<f14>|<f15>|<f16>|<f17>|<f18>|<f19>|<f20>|<f21>|<f22>|<f23>|<f24>|<f25>|<f26>|<f27>|<f28>|<f29>|<f30>|<f31>|<f32>|<f33>|<f34>|<f35>|<f36>|<f37>|",height=2.5];
 	node [width = 1.5];
-	node1 [label = "{<n> 20-367-7073 | Bertrando }"];
+	node1 [label = "{<n> 20-367-7073 | Bertrando Gacia }"];
 	node2 [label = "{<n> 47-237-4927 | Suzie }"];
-	node3 [label = "{<n> 83-547-7694 | BetteAAAAAAAAAAAAAAAAA }"];
+	node3 [label = "{<n> 83-547-7694 | Bette }"];
 	node8 [label = "{<n> 94-160-6366 | Lucine }"];
+	node12 [label = "{<n> 0000 | Zachary }"];
 	node16 [label = "{<n> 02-958-8327 | Karel }"];
 	node17 [label = "{<n> 32-132-3021 | Kora }"];
 	node20 [label = "{<n> 05-079-3421 | Nariko }"];
-	node24 [label = "{<n> 67-093-7276 | SukeyAAAAAAAAA }"];
+	node24 [label = "{<n> 67-093-7276 | Sukey }"];
 	node27 [label = "{<n> 52-535-3936 | Axe }"];
 	node28 [label = "{<n> 62-467-7370 | Babbie }"];
 	node29 [label = "{<n> 31-405-6742 | Essie }"];
+	node32 [label = "{<n> 93-132-5485 | Alameda }"];
 	node33 [label = "{<n> 05-045-9597 | Simonette }"];
 	node34 [label = "{<n> 39-423-6440 | Alexandre }"];
 
@@ -23,6 +25,7 @@ digraph G {
 	node0:f2 -> node2:n;
 	node0:f3 -> node3:n;
 	node0:f8 -> node8:n;
+	node0:f12 -> node12:n;
 	node0:f16 -> node16:n;
 	node0:f17 -> node17:n;
 	node0:f20 -> node20:n;
@@ -30,6 +33,7 @@ digraph G {
 	node0:f27 -> node27:n;
 	node0:f28 -> node28:n;
 	node0:f29 -> node29:n;
+	node0:f32 -> node32:n;
 	node0:f33 -> node33:n;
 	node0:f34 -> node34:n;
 }
