@@ -1,13 +1,17 @@
 package ventanas;
 
 import _EDD.tablaHash;
+import clases.nodoHash;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import clases.usuario;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -17,6 +21,9 @@ import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 /**
  *
@@ -34,8 +41,12 @@ public class m_Administrador extends javax.swing.JFrame {
     JSONParser jsonParser;
     DefaultTableModel modelo, modelo1;
     public tablaHash th = new tablaHash();
+    File f;
+    FileWriter w;
+    BufferedWriter bw;
+    PrintWriter pw;
+    visorReporteHash reporte;
     // public static final ObjectMapper JSON_MAPPER;
-
     public m_Administrador() {
         initComponents();
         modelo = new DefaultTableModel();
@@ -74,12 +85,12 @@ public class m_Administrador extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -156,8 +167,6 @@ public class m_Administrador extends javax.swing.JFrame {
 
         jTextField4.setEnabled(false);
 
-        jTextField5.setEnabled(false);
-
         jButton2.setText("Modificar");
         jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +182,8 @@ public class m_Administrador extends javax.swing.JFrame {
         jLabel6.setText("Apellida");
 
         jLabel7.setText("Password");
+
+        jPasswordField1.setEnabled(false);
 
         jMenu1.setText("Reporte");
 
@@ -213,9 +224,9 @@ public class m_Administrador extends javax.swing.JFrame {
                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(95, 95, 95)
@@ -251,8 +262,8 @@ public class m_Administrador extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
@@ -295,89 +306,112 @@ public class m_Administrador extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        int fila=jTable1.getSelectedRow();
-        if(fila>=0){
+        int fila = jTable1.getSelectedRow();
+        if (fila >= 0) {
             th.eliminarNodo((String) modelo.getValueAt(fila, 0));
             modelo.removeRow(fila);
-        }else{
-            JOptionPane.showMessageDialog(null,"Seleccione un elemento");
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un elemento");
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        int fila=jTable1.getSelectedRow();
-        if(fila>=0){
-            th.eliminarNodo((String) modelo.getValueAt(fila, 0));
+        int fila = jTable1.getSelectedRow();
+        if (fila >= 0) {
+            String carne=(String) modelo.getValueAt(fila, 0);
             jTextField2.setEnabled(true);
             jTextField3.setEnabled(true);
             jTextField4.setEnabled(true);
             jTextField2.setText((String) modelo.getValueAt(fila, 0));
             jTextField3.setText((String) modelo.getValueAt(fila, 1));
             jTextField4.setText((String) modelo.getValueAt(fila, 2));
-            jTextField5.setText((String) modelo.getValueAt(fila, 3));
+            jPasswordField1.setText(th.obtenerNodo(carne).getPassword());
             jButton2.setEnabled(true);
+            th.eliminarNodo((String) modelo.getValueAt(fila, 0));
             modelo.removeRow(fila);
-        }else{
-            JOptionPane.showMessageDialog(null,"Seleccione un elemento");
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un elemento");
         }
-        
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            String data[] = new String[4];
-            data[0]=jTextField2.getText();
-            data[1]=jTextField3.getText();
-            data[2]=jTextField4.getText();
-            data[3]=jTextField5.getText();
-            th.insertar(data[0],data[1],data[2],data[3]);
-            modelo.addRow(data);
-            jTextField2.setEnabled(false);
-            jTextField3.setEnabled(false);
-            jTextField4.setEnabled(false);
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jTextField4.setText("");
-            jTextField5.setText("");
-            jButton2.setEnabled(false);
-        
+        String data[] = new String[4];
+        data[0] = jTextField2.getText();
+        data[1] = jTextField3.getText();
+        data[2] = jTextField4.getText();
+        data[3] = jPasswordField1.getText();
+        th.insertar(data[0], data[1], data[2], data[3]);
+        modelo.addRow(data);
+        jTextField2.setEnabled(false);
+        jTextField3.setEnabled(false);
+        jTextField4.setEnabled(false);
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jPasswordField1.setText("");
+        jButton2.setEnabled(false);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-      generarReporte();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-    void generarReporte(){
-        String contenido="digraph G {\n" +
-"	nodesep=.05;\n" +
-"	rankdir=LR;\n" +
-"	node [shape=record,width=.1,height=.1];\n" +
-"\n" +
-"	node0 [label = \"<f0> |<f1> |<f2> |<f3> |<f4> |<f5> |<f6> |<f7>|<18>| \",height=2.5];\n" +
-"	node [width = 1.5];\n" +
-"	node1 [label = \"{<n> 12312 | Oscar  }\"];\n" +
-"	node2 [label = \"{<n> a1  | 805  }\"];\n" +
-"	node3 [label = \"{<n> i9  | 718  }\"];\n" +
-"	node4 [label = \"{<n> e5  | 989  }\"];\n" +
-"	node5 [label = \"{<n> t20 | 959  }\"] ;\n" +
-"\n" +
-"	node0:f0 -> node1:n;\n" +
-"	node0:f1 -> node2:n;\n" +
-"	node0:f2 -> node3:n;\n" +
-"	node0:f5 -> node4:n;\n" +
-"	node0:f6 -> node5:n;\n" +
-"}";
-        for(int i=0;i<th.size;i++){
-        
+        try {
+            generarReporte();
+        } catch (IOException ex) {
+            Logger.getLogger(m_Administrador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        reporte= new visorReporteHash();
+        reporte.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    void generarReporte() throws IOException {
+        f = new File("ReporteHash.txt");
+        w = new FileWriter(f);
+        bw = new BufferedWriter(w);
+        pw = new PrintWriter(bw);
+        String labels = "";
+        String enlace = "";
+        String espacios = "";
+        nodoHash[] tmp = th.vectorHash;
+        for (int i = 0; i < th.size; i++) {
+            espacios += "<f" + Integer.toString(i + 1) + ">|";
+            if (tmp[i] != null && tmp[i].estado != 'b') {
+                labels += "	node" + Integer.toString(i + 1) + " [label = \"{<n> " + tmp[i].User.getCarne() + " | " + tmp[i].User.getNombre() + " }\"];\n";
+                enlace += "	node0:f" + Integer.toString(i + 1) + " -> node" + Integer.toString(i + 1) + ":n;\n";
+            }
+        }
+        String contenido = "digraph G {\n"
+                + "	nodesep=.05;\n"
+                + "	rankdir=LR;\n"
+                + "	node [shape=record,width=.1,height=.1];\n"
+                + "\n"
+                + "	node0 [label = \"" + espacios + "\",height=2.5];\n"
+                + "	node [width = 1.5];\n"
+                + labels
+                + "\n"
+                + enlace
+                + "}";
+        pw.write(contenido);
+        pw.close();
+        bw.close();
+        try {
+            Runtime.getRuntime().exec("GenerarHash.bat");
+            //Runtime.getRuntime().exec(cmd1);
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
+        System.out.println("REPORTE GENERADO...");
     }
+
     private void parseUserObject(JSONObject user) {
+        
         String data[] = new String[4];
         String dataError[] = new String[2];
         data[0] = (String) user.get("Carnet");
         data[1] = (String) user.get("Nombre");
         data[2] = (String) user.get("Apellido");
-        data[3] = (String) user.get("Password");
-        if (data[3].length() >= 8) {
+        data[3] = sha256((String) user.get("Password"));
+        String pass= (String) user.get("Password");
+        if (pass.length() >= 8) {
             if (th.obtenerNodo(data[0]) == null) {
                 th.insertar((String) user.get("Carnet"), (String) user.get("Nombre"), (String) user.get("Apellido"), (String) user.get("Password"));
                 modelo.addRow(data);
@@ -394,7 +428,25 @@ public class m_Administrador extends javax.swing.JFrame {
         }
 
     }
-
+    public String sha256(String password) {
+	MessageDigest md = null;
+	try {
+		md = MessageDigest.getInstance("SHA-256");
+	} 
+	catch (NoSuchAlgorithmException e) {		
+		e.printStackTrace();
+		return null;
+	}
+	    
+	byte[] hash = md.digest(password.getBytes());
+	StringBuffer sb = new StringBuffer();
+	    
+	for(byte b : hash) {        
+		sb.append(String.format("%02x", b));
+	}
+	    
+	return sb.toString();
+}
     /**
      * @param args the command line arguments
      */
@@ -447,6 +499,7 @@ public class m_Administrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -456,6 +509,5 @@ public class m_Administrador extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
