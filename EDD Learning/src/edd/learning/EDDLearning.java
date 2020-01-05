@@ -28,14 +28,13 @@ public class EDDLearning {
         inicio.setVisible(true);
         ArbolAVL avl = new ArbolAVL();
         avl.insertar(1);
-        avl.insertar(2);
-        avl.insertar(3);
-        avl.insertar(4);
+        avl.posOrderG(avl.raiz, -1);
+
         avl.insertar(5);
         avl.insertar(6);
         avl.insertar(7);
         avl.graficar();
-        avl.posOrderG(avl.raiz, -1);
+        
 
     }
 }

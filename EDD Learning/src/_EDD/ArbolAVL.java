@@ -222,6 +222,7 @@ public class ArbolAVL {
                 + nodos
                 + "}";
         System.out.println(contenido);
+        generarReporte(contenido);
     }
 
     void generarReporte(String contenido) {

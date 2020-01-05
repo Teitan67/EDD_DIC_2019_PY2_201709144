@@ -1,1 +1,1 @@
-dot -Tpng COD-G.txt -o IMG.png
+dot -Tpng COD-G.txt -o C:\recursos\IMG.png
