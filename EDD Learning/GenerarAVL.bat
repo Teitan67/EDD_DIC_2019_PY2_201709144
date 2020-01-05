@@ -1,0 +1,1 @@
+dot -Tpng COD-G.txt -o IMG.png

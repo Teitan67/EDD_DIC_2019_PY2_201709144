@@ -6,6 +6,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import ventanas.Login;
 import ventanas.m_Administrador;
+import _EDD.ArbolAVL;
+
 /**
  *
  * @author Oscar-Laptop
@@ -24,6 +26,16 @@ public class EDDLearning {
         }
         Login inicio = new Login();
         inicio.setVisible(true);
+        ArbolAVL avl = new ArbolAVL();
+        avl.insertar(1);
+        avl.insertar(2);
+        avl.insertar(3);
+        avl.insertar(4);
+        avl.insertar(5);
+        avl.insertar(6);
+        avl.insertar(7);
+        avl.graficar();
+        avl.posOrderG(avl.raiz, -1);
 
     }
 }

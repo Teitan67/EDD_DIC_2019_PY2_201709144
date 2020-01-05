@@ -24,7 +24,7 @@ public class tablaHash {
     public nodoHash[] vectorHash;
 
     public tablaHash() {
-        this.sizes = new int[]{37, 59, 61, 71, 89, 97, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 313, 509};
+        this.sizes = new int[]{37, 59, 61, 71, 89, 97, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 313, 509,547,613};
         this.size = 0;
         this.ocupados = 0;
         this.factorUtil = 55.0f;
@@ -90,7 +90,7 @@ public class tablaHash {
 
     private int DobleHashing(String id, int factor) {
         int tmp = generarClave(id);
-        return funcion1(tmp) + (factor * funcion2(tmp, factor) % size);
+        return funcion1((tmp) + (factor * funcion2(tmp, factor) % size))%size;
     }
 
     void reHashing() {
@@ -202,4 +202,5 @@ public class tablaHash {
             System.out.println("Nodo "+carne+" no encontrado!!!");
         }
     }
+    
 }
