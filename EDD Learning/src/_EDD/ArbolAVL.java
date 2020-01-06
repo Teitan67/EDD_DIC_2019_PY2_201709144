@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ventanas.visorReporteHash;
@@ -24,11 +25,14 @@ public class ArbolAVL {
     private BufferedWriter bw;
     private PrintWriter pw;
     private visorReporteHash reporte;
-    String labels = "";
-    String nodos="";
+    public String labels = "label=\"Arboles AVL\";";
+    public String nodos = "";
+    public String rotacion = "";
+    public ArrayList in;
 
     public ArbolAVL() {
         raiz = null;
+        in = new ArrayList();
     }
 
     public nodoAvl buscar(int d, nodoAvl r) {
@@ -88,7 +92,8 @@ public class ArbolAVL {
 
     public nodoAvl insertarAVL(nodoAvl nuevo, nodoAvl subArb) {
         labels = "";
-        nodos="";
+        nodos = "";
+        rotacion = "";
         nodoAvl nuevoPadre = subArb;
         if (nuevo.dato < subArb.dato) {
             if (subArb.hIzquierdo == null) {
@@ -101,9 +106,11 @@ public class ArbolAVL {
                     if (nuevo.dato < subArb.hIzquierdo.dato) {
                         nuevoPadre = rotacionIzquierda(subArb);
                         // System.out.println("I");
+                        rotacion = "I";
                     } else {
                         nuevoPadre = rotacionDobleIzquierda(subArb);
                         // System.out.println("II");
+                        rotacion = "II";
                     }
                 } else {
                     posOrderG(raiz, -1);
@@ -120,10 +127,12 @@ public class ArbolAVL {
                     posOrderG(raiz, subArb.dato);
                     if (nuevo.dato > subArb.hDerecho.dato) {
                         nuevoPadre = rotacionDerecha(subArb);
+                        rotacion = "D";
                         // System.out.println("D");
                     } else {
                         nuevoPadre = rotacionDobleDerecha(subArb);
                         //System.out.println("DD");
+                        rotacion = "DD";
                     }
                 } else {
                     posOrderG(raiz, -1);
@@ -132,6 +141,7 @@ public class ArbolAVL {
 
         } else {
         }
+
         if ((subArb.hIzquierdo == null) && (subArb.hDerecho != null)) {
             subArb.fe = subArb.hDerecho.fe + 1;
         } else if ((subArb.hDerecho == null) && (subArb.hIzquierdo != null)) {
@@ -139,19 +149,22 @@ public class ArbolAVL {
         } else {
             subArb.fe = Math.max(obtenerFE(subArb.hIzquierdo), obtenerFE(subArb.hDerecho)) + 1;
         }
-        
+
         return nuevoPadre;
     }
 
     public void insertar(int d) {
         labels = "";
-        nodos="";
+        nodos = "";
+
         nodoAvl nuevo = new nodoAvl(d);
         if (raiz == null) {
             raiz = nuevo;
+            posOrderG(raiz, -1);
         } else {
             raiz = insertarAVL(nuevo, raiz);
         }
+        graficar();
         //Recorridos
     }
 
@@ -159,23 +172,26 @@ public class ArbolAVL {
         if (r != null) {
             inOrder(r.hIzquierdo);
             System.out.print(r.dato + " , ");
+            in.add(r.dato);
             inOrder(r.hDerecho);
         }
     }
 
     public void preOrder(nodoAvl r) {
         if (r != null) {
-            inOrder(r.hIzquierdo);
+            in.add(r.dato);
             System.out.print(r.dato + " , ");
-            inOrder(r.hDerecho);
+            preOrder(r.hIzquierdo);
+            preOrder(r.hDerecho);
         }
-    } 
+    }
 
     public void posOrder(nodoAvl r) {
         if (r != null) {
-            inOrder(r.hIzquierdo);
+            posOrder(r.hIzquierdo);
+            posOrder(r.hDerecho);
+            in.add(r.dato);
             System.out.print(r.dato + " , ");
-            inOrder(r.hDerecho);
         }
     }
 
@@ -205,11 +221,26 @@ public class ArbolAVL {
             posOrderG(r.hIzquierdo, i);
 
             if (i == r.dato) {
-                labels += " nodo" + r.dato + "[label=\"" + r.dato + "\",style=filled,fillcolor=red];";
+                labels += " nodo" + r.dato + "[label=\"" + r.dato + "\nFE:" + r.fe + " \",style=filled,fillcolor=red];";
             } else {
-                labels += " nodo" + r.dato + "[label=\"" + r.dato + "\"]; ";
+                labels += " nodo" + r.dato + "[label=\"" + r.dato + "\nFE:" + r.fe + " \"]; ";
             }
             posOrderG(r.hDerecho, i);
+
+        }
+    }
+
+    public void recorrido(nodoAvl r, int i) {
+        if (r != null) {
+
+            recorrido(r.hIzquierdo, i);
+
+            if (i == r.dato) {
+                labels += " nodo" + r.dato + "[label=\"" + r.dato + "\nFE:" + r.fe + " \",style=filled,fillcolor=blue];";
+            } else {
+                labels += " nodo" + r.dato + "[label=\"" + r.dato + "\nFE:" + r.fe + " \"]; ";
+            }
+            recorrido(r.hDerecho, i);
 
         }
     }
@@ -227,7 +258,7 @@ public class ArbolAVL {
 
     void generarReporte(String contenido) {
         try {
-            f = new File("COD-G.txt");
+            f = new File("C:\\recursos\\COD-G.txt");
             w = new FileWriter(f);
             bw = new BufferedWriter(w);
             pw = new PrintWriter(bw);
@@ -235,12 +266,13 @@ public class ArbolAVL {
             pw.close();
             bw.close();
             try {
-                Runtime.getRuntime().exec("GenerarAVL.bat");
+                Runtime.getRuntime().exec("C:\\recursos\\GenerarAVL.bat");
+                System.out.println("REPORTE GENERADO...");
                 //Runtime.getRuntime().exec(cmd1);
             } catch (IOException ioe) {
-                System.out.println(ioe);
+                System.out.println("No se genero" + ioe);
             }
-            System.out.println("REPORTE GENERADO...");
+
         } catch (IOException ex) {
             Logger.getLogger(tablaHash.class.getName()).log(Level.SEVERE, null, ex);
         }

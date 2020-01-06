@@ -103,19 +103,16 @@ public class visorReporteHash extends javax.swing.JFrame {
 
     void mostrarImagen() {
 
+        
         try {
-            JFileChooser fc = new JFileChooser(System.getProperty("user.home"));
-            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            if (fc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION) {
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagen", "png");
-                File file = fc.getSelectedFile();
-                Image img = ImageIO.read(file);
-                ImageIcon icon = new ImageIcon(img);
-                jLabel1.setIcon(icon);
-            }
+            File file = new File ("C:\\recursos\\ReporteHash.png");
+            Image img = ImageIO.read(file);
+            ImageIcon icon = new ImageIcon(img);
+            jLabel1.setIcon(icon);
         } catch (IOException ex) {
             Logger.getLogger(visorReporteHash.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

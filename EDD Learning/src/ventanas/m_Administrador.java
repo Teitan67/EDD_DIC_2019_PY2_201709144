@@ -364,7 +364,7 @@ public class m_Administrador extends javax.swing.JFrame {
         reporte.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
     void generarReporte() throws IOException {
-        f = new File("ReporteHash.txt");
+        f = new File("C:\\recursos\\ReporteHash.txt");
         w = new FileWriter(f);
         bw = new BufferedWriter(w);
         pw = new PrintWriter(bw);
@@ -394,7 +394,7 @@ public class m_Administrador extends javax.swing.JFrame {
         pw.close();
         bw.close();
         try {
-            Runtime.getRuntime().exec("GenerarHash.bat");
+            Runtime.getRuntime().exec("C:\\recursos\\GenerarHash.bat");
             //Runtime.getRuntime().exec(cmd1);
         } catch (IOException ioe) {
             System.out.println(ioe);

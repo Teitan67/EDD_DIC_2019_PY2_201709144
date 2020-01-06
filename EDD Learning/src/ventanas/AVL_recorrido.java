@@ -30,27 +30,34 @@ import java.util.Timer;
  *
  * @author Oscar-Laptop
  */
-public class AVL_insertar extends javax.swing.JFrame {
+public class AVL_recorrido extends javax.swing.JFrame {
 
     /**
      * Creates new form AVL_insertar
      */
     ArbolAVL avl = new ArbolAVL();
     int data[];
+    int pos[], in[], pre[];
     int interador = 0;
     int velocidad = 2;
     TimerTask tarea;
     Timer t;
     static int contador = 0;
+    int iterador = 0;
+    String orde = "";
 
-    public AVL_insertar() {
+    public AVL_recorrido() {
         initComponents();
-        avl.graficar();
         abrirJson();
-        rotacionIzquierda.setVisible(false);
-        rotacionDerecha.setVisible(false);
-        rotacionDobleDerecha.setVisible(false);
-        rotacionDobleIzquierda.setVisible(false);
+
+        jButton1.setEnabled(false);
+
+    }
+
+    public AVL_recorrido(String orden) {
+        initComponents();
+        abrirJson();
+        orde = orden;
         jButton1.setEnabled(false);
 
     }
@@ -72,15 +79,11 @@ public class AVL_insertar extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        rotacionDerecha = new javax.swing.JLabel();
-        rotacionIzquierda = new javax.swing.JLabel();
-        rotacionDobleDerecha = new javax.swing.JLabel();
-        rotacionDobleIzquierda = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        insertado = new javax.swing.JLabel();
-        rotacion = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -105,24 +108,11 @@ public class AVL_insertar extends javax.swing.JFrame {
         jLabel3.setText("Controles automaticos");
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel4.setText("Insertando en AVL");
+        jLabel4.setText("Recorrido en AVL");
 
-        rotacionDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Rotacion Derecha.gif"))); // NOI18N
+        jLabel5.setText("Recorrido");
 
-        rotacionIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/RotacionIzquierda.gif"))); // NOI18N
-        rotacionIzquierda.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-
-        rotacionDobleDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/RotacionDobleDerecho.gif"))); // NOI18N
-
-        rotacionDobleIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/RotacionDobleIzquierda.gif"))); // NOI18N
-
-        jLabel5.setText("Numero Insertado:");
-
-        jLabel6.setText("Rotacion:");
-
-        insertado.setText("00");
-
-        rotacion.setText("---");
+        jLabel6.setText("Pre Ordern: Raiz  Izquierda Derecha");
 
         jButton3.setText("Iniciar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -131,6 +121,10 @@ public class AVL_insertar extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("In Order: Izquierda Raiz Derecho ");
+
+        jLabel8.setText("Post orden:  Izquierda Derecha Raiz");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,74 +132,52 @@ public class AVL_insertar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1))
-                                    .addComponent(jLabel2))
-                                .addGap(108, 108, 108)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel3)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rotacionDobleIzquierda)
-                            .addComponent(rotacionDobleDerecha, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rotacionDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rotacionIzquierda)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(267, 267, 267)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))
+                            .addComponent(jLabel2))
+                        .addGap(108, 108, 108)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rotacion))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(insertado)))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGap(166, 166, 166))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addGap(93, 93, 93)))
+                    .addComponent(jLabel8)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rotacionDerecha)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rotacionIzquierda))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rotacionDobleDerecha)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rotacionDobleIzquierda))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(insertado))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(rotacion)))
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -217,44 +189,30 @@ public class AVL_insertar extends javax.swing.JFrame {
                             .addComponent(jButton1)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2)
-                            .addComponent(jButton3))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton3)))
+                    .addComponent(jLabel7))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    int in = 0;
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (interador < data.length) {
-            avl.posOrderG(avl.raiz, -1);
-            avl.insertar(data[interador]);
+        //metodo a ejecutar
+        if (avl.in.size() > iterador) {
+            avl.labels = "";
+            avl.nodos = "";
+            avl.recorrido(avl.raiz, avl.in.get(iterador).hashCode());
+            avl.graficar();
 
-            rotacionDerecha.setVisible(false);
-            rotacionIzquierda.setVisible(false);
-            rotacionDobleIzquierda.setVisible(false);
-            rotacionDobleDerecha.setVisible(false);
-            insertado.setText(Integer.toString(data[interador]));
-            if (avl.rotacion.equals("D")) {
-                rotacion.setText("Rotacion Derecha");
-                rotacionDerecha.setVisible(true);
-            } else if (avl.rotacion.equals("DD")) {
-                rotacion.setText("Rotacion Derecha izquierda");
-                rotacionDobleDerecha.setVisible(true);
-            } else if (avl.rotacion.equals("I")) {
-                rotacion.setText("Rotacion Izquierda");
-                rotacionIzquierda.setVisible(true);
-            } else if (avl.rotacion.equals("II")) {
-                rotacion.setText("Rotacion Izquierda Derecha");
-                rotacionDobleIzquierda.setVisible(true);
-            }
-            interador += 1;
+            iterador++;
+        }
 
-            try {
-                Thread.sleep(1000);
-                mostrarImagen();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(AVL_recorrido.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            Thread.sleep(1000);
+            mostrarImagen();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AVL_recorrido.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -264,49 +222,49 @@ public class AVL_insertar extends javax.swing.JFrame {
         jButton2.setEnabled(false);
         jButton1.setEnabled(true);
         jTextField1.setEnabled(false);
+        mostrarImagen();
+        if (orde.equals("In-order")) {
+            avl.inOrder(avl.raiz);
+        } else if (orde.equals("Pos-order")) {
+            avl.posOrder(avl.raiz);
+        } else if (orde.equals("Pre-order")) {
+            avl.preOrder(avl.raiz);
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jButton1.setEnabled(false);
         jButton3.setEnabled(false);
         jTextField1.setEnabled(false);
+        if (orde.equals("In-order")) {
+            avl.inOrder(avl.raiz);
+        } else if (orde.equals("Pos-order")) {
+            avl.posOrder(avl.raiz);
+        } else if (orde.equals("Pre-order")) {
+            avl.preOrder(avl.raiz);
+        }
         velocidad = Integer.parseInt(jTextField1.getText()) * 1000;
-         rotacion.setText("----");
         tarea = new TimerTask() {
             @Override
             public void run() {
-                if (interador < data.length) {
-                    avl.posOrderG(avl.raiz, -1);
-                    avl.insertar(data[interador]);
-                   
-                    rotacionDerecha.setVisible(false);
-                    rotacionIzquierda.setVisible(false);
-                    rotacionDobleIzquierda.setVisible(false);
-                    rotacionDobleDerecha.setVisible(false);
-                    insertado.setText(Integer.toString(data[interador]));
-                    if (avl.rotacion.equals("D")) {
-                        rotacion.setText("Rotacion Derecha");
-                        rotacionDerecha.setVisible(true);
-                    } else if (avl.rotacion.equals("DD")) {
-                        rotacion.setText("Rotacion Derecha izquierda");
-                        rotacionDobleDerecha.setVisible(true);
-                    } else if (avl.rotacion.equals("I")) {
-                        rotacion.setText("Rotacion Izquierda");
-                        rotacionIzquierda.setVisible(true);
-                    } else if (avl.rotacion.equals("II")) {
-                        rotacion.setText("Rotacion Izquierda Derecha");
-                        rotacionDobleIzquierda.setVisible(true);
-                    }else{
-                        rotacion.setText("----");
-                    }
-                    interador += 1;
+                //Metodo ejecucion automatica
+
+                if (avl.in.size() > iterador) {
+                    avl.labels = "";
+                    avl.nodos = "";
+                    avl.recorrido(avl.raiz, avl.in.get(iterador).hashCode());
+                    avl.graficar();
+
+                    iterador += 1;
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(1500);
                         mostrarImagen();
                     } catch (InterruptedException ex) {
                         Logger.getLogger(AVL_recorrido.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+
             }
 
         };
@@ -339,9 +297,14 @@ public class AVL_insertar extends javax.swing.JFrame {
                 for (int i = 0; i < input.size(); i++) {
                     s = (JSONObject) input.get(i);
                     data[i] = s.get("num").hashCode();
+                    avl.insertar(data[i]);
 
                     System.out.println(data[i]);
                 }
+                avl.labels = "";
+                avl.nodos = "";
+                avl.recorrido(avl.raiz, -1);
+                avl.graficar();
                 // System.out.println(userList2.size());
 
             } catch (FileNotFoundException e) {
@@ -382,26 +345,26 @@ public class AVL_insertar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AVL_insertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AVL_recorrido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AVL_insertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AVL_recorrido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AVL_insertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AVL_recorrido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AVL_insertar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AVL_recorrido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AVL_insertar().setVisible(true);
+                new AVL_recorrido().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel insertado;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -411,13 +374,10 @@ public class AVL_insertar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel rotacion;
-    private javax.swing.JLabel rotacionDerecha;
-    private javax.swing.JLabel rotacionDobleDerecha;
-    private javax.swing.JLabel rotacionDobleIzquierda;
-    private javax.swing.JLabel rotacionIzquierda;
     // End of variables declaration//GEN-END:variables
 
 }

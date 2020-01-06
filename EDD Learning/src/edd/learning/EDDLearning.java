@@ -7,6 +7,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ventanas.Login;
 import ventanas.m_Administrador;
 import _EDD.ArbolAVL;
+import ventanas.AVL_insertar;
+import ventanas.AVL_recorrido;
 
 /**
  *
@@ -26,15 +28,6 @@ public class EDDLearning {
         }
         Login inicio = new Login();
         inicio.setVisible(true);
-        ArbolAVL avl = new ArbolAVL();
-        avl.insertar(1);
-        avl.posOrderG(avl.raiz, -1);
-
-        avl.insertar(5);
-        avl.insertar(6);
-        avl.insertar(7);
-        avl.graficar();
-        
 
     }
 }
