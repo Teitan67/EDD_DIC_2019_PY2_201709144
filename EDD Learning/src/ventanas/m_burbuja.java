@@ -36,11 +36,14 @@ public class m_burbuja extends javax.swing.JFrame {
     /**
      * Creates new form m_burbuja
      */
+    int iterador = 0;
+    int jterador = 0;
     int arreglo[];
     String array = "";
     String conexion = "";
-    int velocidad=0;
+    int velocidad = 0;
     TimerTask tarea;
+
     public m_burbuja() {
         initComponents();
         abrirJson();
@@ -138,16 +141,35 @@ public class m_burbuja extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        graficar();
-        burbuja(arreglo);
+
+        burbuja();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        burbuja();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        velocidad = Integer.parseInt(jTextField1.getText()) * 1000;
+        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                //Metodo ejecucion automatica
+                burbuja();
+
+                try {
+                    Thread.sleep(1500);
+                    mostrarImagen();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(AVL_recorrido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+        };
+
+        Timer t = new Timer();
+        t.schedule(tarea, velocidad, velocidad);
     }//GEN-LAST:event_jButton3ActionPerformed
     void abrirJson() {
 
@@ -189,29 +211,34 @@ public class m_burbuja extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    void burbuja(int arreglo[]) {
-        for (int i = 0; i < arreglo.length - 1; i++) {
-            for (int j = 0; j < arreglo.length - 1; j++) {
-                if (arreglo[j] < arreglo[j + 1]) {
+    void burbuja() {
+        if (iterador < arreglo.length - 1) {
+            if (jterador < arreglo.length - 1) {
+                if (arreglo[jterador] < arreglo[jterador + 1]) {
 
                     conexion = "";
-                    conexion = "node0:f" + j + "->node0:f" + (j + 1);
+                    conexion = "node0:f" + jterador + "->node0:f" + (jterador + 1);
                     graficar();
-                    int tmp = arreglo[j + 1];
-                    arreglo[j + 1] = arreglo[j];
-                    arreglo[j] = tmp;
+                    int tmp = arreglo[jterador + 1];
+                    arreglo[jterador + 1] = arreglo[jterador];
+                    arreglo[jterador] = tmp;
+                    
 
                 }
+                System.out.println(jterador);
+               
 
             }
+            jterador  ++;
+             System.out.println(iterador);
+            
+
         }
+        iterador++;
         conexion = "";
         graficar();
 
     }
-
-    
-
 
     public void graficar() {
         array = "";
@@ -238,7 +265,14 @@ public class m_burbuja extends javax.swing.JFrame {
                 + "\n"
                 + "}";
         System.out.println(contenido);
-        generarReporte(contenido);
+        try {
+            generarReporte(contenido);
+            Thread.sleep(2000);
+            mostrarImagen();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AVL_recorrido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     void generarReporte(String contenido) {
@@ -253,8 +287,6 @@ public class m_burbuja extends javax.swing.JFrame {
             try {
                 Runtime.getRuntime().exec("C:\\recursos\\GenerarAVL.bat");
                 System.out.println("REPORTE GENERADO...");
-
-                mostrarImagen();
 
                 //Runtime.getRuntime().exec(cmd1);
             } catch (IOException ioe) {
