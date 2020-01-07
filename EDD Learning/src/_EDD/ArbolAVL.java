@@ -216,6 +216,109 @@ public class ArbolAVL {
         }
     }
 
+    public nodoAvl buscar(nodoAvl inicio, int buscando) {
+        nodoAvl aux=null;
+        
+        if (inicio.dato == buscando) {
+            aux= inicio;
+        } else {
+            if (buscando < inicio.dato) {
+                if (inicio.hIzquierdo != null) {
+                   aux= buscar(inicio.hIzquierdo, buscando);
+                } else {
+                    System.out.println("Menor");
+                    aux= null;
+                }
+            } else {
+                if (inicio.hDerecho != null) {
+                    aux=buscar(inicio.hDerecho, buscando);
+                } else {
+                    System.out.println("Mayoer");
+                    aux= null;
+                }
+            }
+        }
+       
+        in.add(inicio.dato);
+        System.out.println("Busqueda "+inicio.dato);
+        return aux;
+    }
+
+    public boolean eliminar(int d) {
+        nodoAvl aux = raiz;
+        nodoAvl padre = raiz;
+        boolean esHijoIzq = true;
+        while (aux.dato != d) {
+            padre = aux;
+            if (d < aux.dato) {
+                esHijoIzq = true;
+                aux = aux.hIzquierdo;
+            } else {
+                esHijoIzq = false;
+                aux = aux.hDerecho;
+            }
+            if (aux == null) {
+                return false;
+            }
+        }//fin while
+        if (aux.hIzquierdo == null && aux.hDerecho == null) {
+            if (aux == raiz) {
+                raiz = null;
+            } else if (esHijoIzq) {
+                padre.hIzquierdo = null;
+            } else {
+                padre.hDerecho = null;
+            }
+        } else if (aux.hDerecho == null) {
+            if (aux == raiz) {
+                raiz = aux.hIzquierdo;
+            } else if (esHijoIzq) {
+                padre.hIzquierdo = aux.hIzquierdo;
+            } else {
+
+                padre.hDerecho = aux.hIzquierdo;
+            }
+        } else if (aux.hIzquierdo == null) {
+            if (aux == raiz) {
+                raiz = aux.hDerecho;
+            } else if (esHijoIzq) {
+                padre.hIzquierdo = aux.hDerecho;
+            } else {
+
+                padre.hDerecho = aux.hDerecho;
+            }
+        } else {
+            nodoAvl reemplazo = obtenerRemplazo(aux);
+            if (aux == raiz) {
+                raiz = reemplazo;
+            } else if (esHijoIzq) {
+                padre.hIzquierdo = reemplazo;
+            } else {
+                padre.hDerecho = reemplazo;
+            }
+            reemplazo.hIzquierdo = aux.hIzquierdo;
+        }
+        return true;
+    }
+
+    public nodoAvl obtenerRemplazo(nodoAvl nodoRe) {
+        nodoAvl remPadre = nodoRe;
+        nodoAvl rem = nodoRe;
+        nodoAvl aux = nodoRe.hDerecho;
+        while (aux != null) {
+            remPadre = rem;
+            rem = aux;
+            aux = aux.hIzquierdo;
+        }
+        if (rem != nodoRe.hDerecho) {
+            remPadre.hIzquierdo = rem.hDerecho;
+            rem.hDerecho = nodoRe.hDerecho;
+        }
+        System.out.println("Nodo reemplazo " + rem.dato);
+        return rem;
+
+    }
+
     public void posOrderG(nodoAvl r, int i) {
         if (r != null) {
             posOrderG(r.hIzquierdo, i);

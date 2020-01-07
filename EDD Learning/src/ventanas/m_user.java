@@ -18,9 +18,10 @@ public class m_user extends javax.swing.JFrame {
         initComponents();
         L_Usuario.setText(user);
     }
+
     public m_user() {
         initComponents();
-       
+
     }
 
     /**
@@ -124,6 +125,11 @@ public class m_user extends javax.swing.JFrame {
         jLabel7.setText("Algoritmos---------------------");
 
         jButton9.setText("Burbuja");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("Inserccion");
 
@@ -261,6 +267,11 @@ public class m_user extends javax.swing.JFrame {
         AVL_recorrido l = new AVL_recorrido(jComboBox1.getSelectedItem().toString());
         l.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        m_burbuja v = new m_burbuja();
+        v.setVisible(true);
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments

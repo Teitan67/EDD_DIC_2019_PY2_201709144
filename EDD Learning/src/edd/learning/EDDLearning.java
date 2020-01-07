@@ -7,8 +7,10 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ventanas.Login;
 import ventanas.m_Administrador;
 import _EDD.ArbolAVL;
+import ventanas.AVL_eliminar;
 import ventanas.AVL_insertar;
 import ventanas.AVL_recorrido;
+import ventanas.m_burbuja;
 
 /**
  *
@@ -28,6 +30,13 @@ public class EDDLearning {
         }
         Login inicio = new Login();
         inicio.setVisible(true);
+        //m_burbuja v = new m_burbuja();
+        //v.setVisible(true);
+        ArbolAVL A= new ArbolAVL();
+     
+        AVL_eliminar sas= new AVL_eliminar();
+       sas.setVisible(true);
+
 
     }
 }
