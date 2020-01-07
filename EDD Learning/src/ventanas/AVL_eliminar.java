@@ -180,14 +180,14 @@ public class AVL_eliminar extends javax.swing.JFrame {
         if (iterador >= 0) {
             avl.labels = "";
             avl.nodos = "";
-            avl.recorrido(avl.raiz, avl.in.get(iterador).hashCode());
+            avl.recorrido(avl.raiz, Integer.parseInt(avl.in.get(iterador).toString()));
             avl.graficar();
 
             iterador--;
         } else {
             avl.labels = "";
             avl.nodos = "";
-            avl.posOrderG( avl.raiz, -1);
+            avl.posOrderG(avl.raiz, -1);
             avl.graficar();
             if (avl.buscar(avl.raiz, Integer.parseInt(jTextField2.getText())) == null) {
                 //No se encontro
@@ -221,7 +221,7 @@ public class AVL_eliminar extends javax.swing.JFrame {
         jButton1.setEnabled(false);
         jButton3.setEnabled(false);
         jTextField1.setEnabled(false);
-        avl.buscar(avl.raiz, jTextField2.getText().hashCode());
+        avl.buscar(avl.raiz, Integer.parseInt(jTextField2.getText()));
         velocidad = Integer.parseInt(jTextField1.getText()) * 1000;
         tarea = new TimerTask() {
             @Override
@@ -231,17 +231,27 @@ public class AVL_eliminar extends javax.swing.JFrame {
                 if (iterador >= 0) {
                     avl.labels = "";
                     avl.nodos = "";
-                    avl.recorrido(avl.raiz, avl.in.get(iterador).hashCode());
+                    avl.recorrido(avl.raiz, Integer.parseInt(avl.in.get(iterador).toString()));
                     avl.graficar();
 
                     iterador--;
+                } else {
+                    avl.labels = "";
+                    avl.nodos = "";
+                    avl.posOrderG(avl.raiz, -1);
+                    avl.graficar();
+                    if (avl.buscar(avl.raiz, Integer.parseInt(jTextField2.getText())) == null) {
+                        //No se encontro
+                    } else {
+                        System.out.println("Eliminado " + avl.eliminar(Integer.parseInt(jTextField2.getText())));
 
-                    try {
-                        Thread.sleep(1500);
-                        mostrarImagen();
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(AVL_eliminar.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                }
+                try {
+                    Thread.sleep(1000);
+                    mostrarImagen();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(AVL_eliminar.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }

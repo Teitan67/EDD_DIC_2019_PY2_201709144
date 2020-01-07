@@ -111,6 +111,11 @@ public class m_user extends javax.swing.JFrame {
         jLabel6.setText("Grafos---------------------------");
 
         jButton6.setText("Matriz de adyacencia");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Recorrido: Anchura");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +125,11 @@ public class m_user extends javax.swing.JFrame {
         });
 
         jButton8.setText("Recorrido: Profundidad");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel7.setText("Algoritmos---------------------");
@@ -247,11 +257,14 @@ public class m_user extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        AVL_eliminar sas = new AVL_eliminar();
+        sas.setVisible(true);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        G_anchura a = new G_anchura();
+        a.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -272,6 +285,16 @@ public class m_user extends javax.swing.JFrame {
         m_burbuja v = new m_burbuja();
         v.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        G_profunidad a = new G_profunidad();
+        a.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        G_matriz a= new G_matriz();
+        a.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

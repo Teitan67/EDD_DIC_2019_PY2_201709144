@@ -7,9 +7,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ventanas.Login;
 import ventanas.m_Administrador;
 import _EDD.ArbolAVL;
+import _EDD.Cola;
 import ventanas.AVL_eliminar;
 import ventanas.AVL_insertar;
 import ventanas.AVL_recorrido;
+import ventanas.G_anchura;
+import ventanas.G_matriz;
+import ventanas.G_profunidad;
 import ventanas.m_burbuja;
 
 /**
@@ -32,11 +36,9 @@ public class EDDLearning {
         inicio.setVisible(true);
         //m_burbuja v = new m_burbuja();
         //v.setVisible(true);
-        ArbolAVL A= new ArbolAVL();
-     
-        AVL_eliminar sas= new AVL_eliminar();
-       sas.setVisible(true);
+        
 
+        
 
     }
 }
